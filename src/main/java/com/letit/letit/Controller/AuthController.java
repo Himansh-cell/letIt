@@ -44,8 +44,8 @@ public class AuthController {
     private JwtHelper jwtHelper;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestParam String username, @RequestParam String password) {
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
+    public ResponseEntity<?> login(@RequestParam("email") String email, @RequestParam String password) {
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(email, password);
       try{  authenticationManager.authenticate(token);}
       catch (BadCredentialsException e){
           return ResponseEntity.badRequest().build();
@@ -53,7 +53,7 @@ public class AuthController {
 
 
 
-        String JwtToken = jwtHelper.generateToken(customUserDetailsService.loadUserByUsername(username));
+        String JwtToken = jwtHelper.generateToken(customUserDetailsService.loadUserByUsername(email));
 
         JwtResponse jwtResponse = new JwtResponse();
         jwtResponse.setToken(JwtToken);

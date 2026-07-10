@@ -31,4 +31,7 @@ public class Comment {
 
     private LocalDate createdDate;
 
+    private Long likesCount;
+
+
 }

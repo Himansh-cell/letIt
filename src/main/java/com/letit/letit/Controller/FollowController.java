@@ -51,19 +51,18 @@ return ResponseEntity.ok("friend request sent successfully");
     }
 
 
-    @PostMapping("/{receiver_username}")
-    public ResponseEntity<String> acceptRequest(@PathVariable String receiver_username){
-        String senderUsername =  SecurityContextHolder.getContext().getAuthentication().getName()  ;
+    @PutMapping("/{sender_username}/accept")
+    public ResponseEntity<String> acceptRequest(@PathVariable String sender_username){
+        String receiverUsername =  SecurityContextHolder.getContext().getAuthentication().getName()  ;
 
-
-        if(receiver_username.equals(senderUsername)){
+        if(sender_username.equals(receiverUsername)){
             return  ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
-        BaseProfile sender = baseProfileRepo.findByUserName(senderUsername)
+        BaseProfile sender = baseProfileRepo.findByUserName(sender_username)
                 .orElseThrow(() -> new RuntimeException("Sender not found"));
 
-        BaseProfile receiver = baseProfileRepo.findByUserName(receiver_username)
+        BaseProfile receiver = baseProfileRepo.findByUserName(receiverUsername)
                 .orElseThrow(() -> new RuntimeException("Receiver not found"));
 
 
@@ -76,7 +75,7 @@ return ResponseEntity.ok("friend request sent successfully");
 
         followRepo.save(f1);
 
-        return ResponseEntity.ok("friend request sent successfully");
+        return ResponseEntity.ok("friend request accepted successfully");
     }
 
 }

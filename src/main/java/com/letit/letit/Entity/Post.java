@@ -15,12 +15,19 @@ public class Post {
     @ManyToOne
     private BaseProfile baseProfile;
 
+    private String caption;
+
+    @Enumerated(EnumType.STRING)
+    private Visibility visibility;
+
     private Long likes;
 
     private Long comments;
 
+    private java.time.LocalDateTime createdAt;
 
-
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private java.util.List<MultiMedia> media;
 
 
 

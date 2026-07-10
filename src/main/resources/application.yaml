@@ -1,14 +1,11 @@
 spring:
   application:
     name: letit
-
-
   datasource:
     url: jdbc:postgresql://localhost:5432/letit
     username: postgres
     password: 196581
     driver-class-name: org.postgresql.Driver
-
   jpa:
     hibernate:
       ddl-auto: update
@@ -16,3 +13,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/letit
+
+media:
+  storage: mongo

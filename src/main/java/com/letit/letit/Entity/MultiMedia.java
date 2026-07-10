@@ -1,7 +1,6 @@
 package com.letit.letit.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -11,11 +10,14 @@ import java.time.LocalDate;
 public class MultiMedia {
 
     @Id
-  private  String id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private  String id;
 
     private String type;
 
     private String hashCode;
+
+    private String criteria;
 
     private String size;
 
@@ -24,5 +26,12 @@ public class MultiMedia {
     private LocalDate creationDate;
 
     private String dimension;
+
+    private String mongoFileId;
+
+    @ManyToOne
+    @jakarta.persistence.JoinColumn(name = "post_id")
+    private Post post;
+
 
 }

@@ -28,9 +28,5 @@ public class ProfileController {
     }
 
 
-    @GetMapping ("/{username}")
-    public ResponseEntity<?> showProfile( @PathVariable String username) {
 
-
-    }
 }

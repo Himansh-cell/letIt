@@ -5,6 +5,9 @@ import lombok.Data;
 
 @Entity
 @Data
+@Table(name = "likes", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"base_profile_id", "target_type", "target_id"})
+})
 public class Like {
 
     @Id
@@ -14,8 +17,11 @@ public class Like {
     @ManyToOne
     private BaseProfile baseProfile;
 
-    private String target_type;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "target_type")
+    private TargetType targetType;
 
-    private  String target_id;
+    @Column(name = "target_id")
+    private String targetId;
 
 }
