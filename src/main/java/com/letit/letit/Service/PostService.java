@@ -86,15 +86,7 @@ public class PostService {
     }
 
     public Page<PostResponse> getFeed(String username, Pageable pageable) {
-        BaseProfile baseProfile = baseProfileRepo.findByUserName(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        
-        List<String> followingIds = followRepo.findByFollowerIdAndStatus(baseProfile.getId(), "FOLLOWING")
-                .stream().map(f -> f.getFollowing().getId()).collect(Collectors.toList());
-        
-        followingIds.add(baseProfile.getId()); // Include own posts
-
-        Page<Post> posts = postRepo.findByBaseProfileIdInAndVisibilityNot(followingIds, Visibility.ONLY_ME, pageable);
+        Page<Post> posts = postRepo.findByVisibilityNot(Visibility.ONLY_ME, pageable);
         return posts.map(this::mapToResponse);
     }
 
@@ -117,7 +109,9 @@ public class PostService {
         response.setVisibility(post.getVisibility());
         response.setCreatedAt(post.getCreatedAt());
         if (post.getMedia() != null) {
-            response.setMediaUrls(post.getMedia().stream().map(MultiMedia::getId).collect(Collectors.toList()));
+            response.setMediaUrls(post.getMedia().stream()
+                    .map(media -> "/media/" + media.getId())
+                    .collect(Collectors.toList()));
         }
         return response;
     }

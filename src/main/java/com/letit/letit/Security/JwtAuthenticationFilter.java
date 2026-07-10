@@ -40,7 +40,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // Skip JWT validation for /signup
         if (requestPath.equals("/auth/register") || requestPath.equals("/auth/login")||
                  requestPath.equals("/forget") ||
-                requestPath.equals("/view")) {
+                requestPath.equals("/view") ||
+                requestPath.startsWith("/media/")) {
             filterChain.doFilter(request, response);
             return;
         }

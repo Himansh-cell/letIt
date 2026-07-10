@@ -15,4 +15,5 @@ import java.util.List;
 public interface PostRepo extends JpaRepository<Post, String> {
     List<Post> findByBaseProfileId(String baseProfileId);
     Page<Post> findByBaseProfileIdInAndVisibilityNot(List<String> userIds, Visibility visibility, Pageable pageable);
+    Page<Post> findByVisibilityNot(Visibility visibility, Pageable pageable);
 }
