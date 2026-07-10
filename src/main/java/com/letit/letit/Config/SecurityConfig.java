@@ -45,9 +45,10 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOriginPatterns(Arrays.asList(
+                "https://letit-sdsa.onrender.com",
                 "http://localhost:*",
-                "http://127.0.0.1:*",
-                "https://splitmate-fronted.onrender.com"
+                "http://127.0.0.1:*"
+
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept"));

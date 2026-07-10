@@ -2,20 +2,23 @@ spring:
   application:
     name: letit
   datasource:
-    url: jdbc:postgresql://localhost:5432/letit
-    username: postgres
-    password: 196581
-    driver-class-name: org.postgresql.Driver
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/letit}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: ${SPRING_DATASOURCE_DRIVER:org.postgresql.Driver}
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: true
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
+    show-sql: ${SPRING_JPA_SHOW_SQL:true}
     properties:
       hibernate:
-        format_sql: true
+        format_sql: ${SPRING_JPA_FORMAT_SQL:true}
   data:
     mongodb:
-      uri: mongodb://localhost:27017/letit
+      uri: ${SPRING_DATA_MONGODB_URI:mongodb://localhost:27017/letit}
 
 media:
-  storage: mongo
+  storage: ${MEDIA_STORAGE:mongo}
+
+jwt:
+  secret: ${JWT_SECRET}
